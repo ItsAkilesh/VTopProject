@@ -1,4 +1,4 @@
-package com.trak.vtopattendance;
+package com.trak.attendanceapp;
 
 import org.junit.Test;
 

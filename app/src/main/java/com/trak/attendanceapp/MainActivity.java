@@ -1,4 +1,4 @@
-package com.trak.vtopattendance;
+package com.trak.attendanceapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,22 +21,19 @@ public class MainActivity extends AppCompatActivity {
     Button signin;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         signin = findViewById(R.id.signin);
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+
         gsc = GoogleSignIn.getClient(this,gso);
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignIn();
-            }
-        });
+
+        signin.setOnClickListener(v -> SignIn());
 
 
     }
@@ -52,21 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode==100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            
-            try {
+            ProfileActivity();
+            try{
                 task.getResult(ApiException.class);
-                HomeActivity();
-            } catch (ApiException e){
+
+            } catch (ApiException e) {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             }
-            
         }
-
-
     }
 
-    private void HomeActivity() {
-
+    private void ProfileActivity() {
         finish();
         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
         startActivity(intent);
